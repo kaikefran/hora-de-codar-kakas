@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Hora de Codar: Primeiros Passos</title>
+</head>
+<body>
+<script>
+// Atividade Hora de Codar - Primeiros Passos
+// Menu principal no final do arquivo
+
+// ================= 1) PRIMEIROS PASSOS =================
+function primeirosPassos() {
+  let exercicio = prompt("Primeiros Passos\nQual exercício? (1.1, 1.2 ou 1.3)");
+
+  switch (exercicio) {
+    case "1.1":
+      let nome_do_carro = "Fusca";
+      alert(nome_do_carro);
+      break;
+
+    case "1.2":
+      let nome = prompt("Qual é o seu nome?");
+      alert("Olá, " + nome);
+      // extras
+      alert(nome.toUpperCase());
+      alert("Seu nome tem " + nome.length + " caracteres");
+      break;
+
+    case "1.3":
+      let nome2 = prompt("Qual é o seu nome?");
+      let idade = prompt("Qual é a sua idade?");
+      alert("Olá, " + nome2 + ", sua idade é " + idade);
+      break;
+
+    default:
+      alert("Exercício não encontrado");
+  }
+}
+
+// ================= 2) CONDICIONAIS =================
+function condicionais() {
+  let exercicio = prompt("Condicionais\nQual exercício? (de 2.1 até 2.9)");
+
+  switch (exercicio) {
+    case "2.1": {
+      // maior de dois números
+      let a = Number(prompt("Digite o primeiro número:"));
+      let b = Number(prompt("Digite o segundo número:"));
+      if (a > b) {
+        alert("O maior é " + a);
+      } else if (b > a) {
+        alert("O maior é " + b);
+      } else {
+        alert("Os números são iguais");
+      }
+      break;
+    }
+
+    case "2.2": {
+      // positivo, negativo ou zero
+      let valor = Number(prompt("Digite um valor:"));
+      if (valor > 0) {
+        alert("Positivo");
+      } else if (valor < 0) {
+        alert("Negativo");
+      } else {
+        alert("Zero");
+      }
+      break;
+    }
+
+    case "2.3": {
+      // maior de 3 valores
+      let a = Number(prompt("Digite o valor 1:"));
+      let b = Number(prompt("Digite o valor 2:"));
+      let c = Number(prompt("Digite o valor 3:"));
+      let maior = a;
+      if (b > maior) {
+        maior = b;
+      }
+      if (c > maior) {
+        maior = c;
+      }
+      alert("O maior é " + maior);
+      break;
+    }
+
+    case "2.4": {
+      // soma dos 2 maiores
+      let a = Number(prompt("Digite o valor 1:"));
+      let b = Number(prompt("Digite o valor 2:"));
+      let c = Number(prompt("Digite o valor 3:"));
+      let menor = a;
+      if (b < menor) {
+        menor = b;
+      }
+      if (c < menor) {
+        menor = c;
+      }
+      // soma tudo e tira o menor, sobram os 2 maiores
+      let soma = a + b + c - menor;
+      alert("A soma dos 2 maiores é " + soma);
+      break;
+    }
+
+    case "2.5": {
+      // 6 valores e a média
+      let v1 = Number(prompt("Valor 1:"));
+      let v2 = Number(prompt("Valor 2:"));
+      let v3 = Number(prompt("Valor 3:"));
+      let v4 = Number(prompt("Valor 4:"));
+      let v5 = Number(prompt("Valor 5:"));
+      let v6 = Number(prompt("Valor 6:"));
+      let media = (v1 + v2 + v3 + v4 + v5 + v6) / 6;
+      alert("Valores: " + v1 + ", " + v2 + ", " + v3 + ", " + v4 + ", " + v5 + ", " + v6);
+      alert("Média: " + media);
+      break;
+    }
+
+    case "2.6": {
+      // primeiro, último e maior de 4 valores
+      let v1 = Number(prompt("Valor 1:"));
+      let v2 = Number(prompt("Valor 2:"));
+      let v3 = Number(prompt("Valor 3:"));
+      let v4 = Number(prompt("Valor 4:"));
+      let maior = v1;
+      if (v2 > maior) {
+        maior = v2;
+      }
+      if (v3 > maior) {
+        maior = v3;
+      }
+      if (v4 > maior) {
+        maior = v4;
+      }
+      alert("Primeiro: " + v1 + "\nÚltimo: " + v4 + "\nMaior: " + maior);
+      break;
+    }
+
+    case "2.7": {
+      // soma só dos menores que 72
+      let soma = 0;
+      let todos = "";
+      for (let i = 1; i <= 6; i++) {
+        let numero = Number(prompt("Digite o número " + i + ":"));
+        todos = todos + numero + " ";
+        if (numero < 72) {
+          soma = soma + numero;
+        }
+      }
+      alert("Valores: " + todos + "\nSoma dos menores que 72: " + soma);
+      break;
+    }
+
+    case "2.8": {
+      // 4 números entre 0 e 10 e a média
+      let soma = 0;
+      for (let i = 1; i <= 4; i++) {
+        let numero = Number(prompt("Digite o número " + i + " (entre 1 e 9):"));
+        while (numero <= 0 || numero >= 10) {
+          numero = Number(prompt("Número inválido! Digite um valor maior que 0 e menor que 10:"));
+        }
+        soma = soma + numero;
+      }
+      let media = soma / 4;
+      if (media > 5) {
+        alert("Você passou no teste");
+      } else {
+        alert("Tente novamente");
+      }
+      break;
+    }
+
+    case "2.9": {
+      // pode votar?
+      let anoAtual = 2026;
+      let nascimento = Number(prompt("Em que ano você nasceu?"));
+      let idade = anoAtual - nascimento;
+      if (idade >= 16) {
+        alert("Você tem " + idade + " anos e pode votar");
+      } else {
+        alert("Você tem " + idade + " anos e não pode votar");
+      }
+      break;
+    }
+
+    default:
+      alert("Exercício não encontrado");
+  }
+}
+
+// ================= 3) LAÇOS DE REPETIÇÃO =================
+function lacos() {
+  let exercicio = prompt("Laços de Repetição\nQual exercício? (de 3.1 até 3.9)");
+
+  switch (exercicio) {
+    case "3.1": {
+      // bomba-relógio
+      let contagem = "";
+      for (let i = 30; i >= 0; i--) {
+        contagem = contagem + i + " - ";
+      }
+      alert(contagem);
+      alert("EXPLOSÃO");
+      break;
+    }
+
+    case "3.2": {
+      // divisão, o segundo valor precisa ser maior que 0
+      let primeiro = Number(prompt("Digite o primeiro valor:"));
+      let segundo = Number(prompt("Digite o segundo valor:"));
+      while (segundo <= 0) {
+        segundo = Number(prompt("O segundo valor deve ser maior que 0. Digite de novo:"));
+      }
+      alert(primeiro + " / " + segundo + " = " + (primeiro / segundo));
+      break;
+    }
+
+    case "3.3": {
+      // média de 15 até 100
+      let soma = 0;
+      let quantidade = 0;
+      for (let i = 15; i <= 100; i++) {
+        soma = soma + i;
+        quantidade = quantidade + 1;
+      }
+      alert("Média: " + (soma / quantidade));
+      break;
+    }
+
+    case "3.4": {
+      // média entre dois inteiros
+      let primeiro = Number(prompt("Digite o primeiro inteiro:"));
+      let segundo = Number(prompt("Digite o segundo inteiro (maior que o primeiro):"));
+      while (segundo <= primeiro) {
+        segundo = Number(prompt("O segundo tem que ser maior que o primeiro. Digite de novo:"));
+      }
+      let soma = 0;
+      let quantidade = 0;
+      for (let i = primeiro; i <= segundo; i++) {
+        soma = soma + i;
+        quantidade = quantidade + 1;
+      }
+      alert("Média: " + (soma / quantidade));
+      break;
+    }
+
+    case "3.5": {
+      // média dos alunos, aprovado com 9,5
+      let aprovados = 0;
+      let resposta = "S";
+      while (resposta == "S") {
+        let nota1 = Number(prompt("Digite a nota 1:"));
+        let nota2 = Number(prompt("Digite a nota 2:"));
+        let media = (nota1 + nota2) / 2;
+        if (media >= 9.5) {
+          alert("Média " + media + ": aprovado");
+          aprovados = aprovados + 1;
+        } else {
+          alert("Média " + media + ": reprovado");
+        }
+        resposta = prompt("Calcular a média de outro aluno? (S/N)").toUpperCase();
+      }
+      alert("Alunos aprovados: " + aprovados);
+      break;
+    }
+
+    case "3.6": {
+      // média de 6 notas de 0 a 10
+      let soma = 0;
+      for (let i = 1; i <= 6; i++) {
+        let nota = Number(prompt("Digite a nota " + i + " (0 a 10):"));
+        while (nota < 0 || nota > 10) {
+          nota = Number(prompt("Nota inválida! Digite uma nota de 0 a 10:"));
+        }
+        soma = soma + nota;
+      }
+      alert("Média simples: " + (soma / 6));
+      break;
+    }
+
+    case "3.7": {
+      // de 1 até N
+      let n = Number(prompt("Digite um valor N (maior que 0):"));
+      while (n <= 0) {
+        n = Number(prompt("N tem que ser maior que 0. Digite de novo:"));
+      }
+      let lista = "";
+      for (let i = 1; i <= n; i++) {
+        lista = lista + i + " - ";
+      }
+      alert(lista);
+      break;
+    }
+
+    case "3.8": {
+      // 10 primeiros maiores que 100
+      let lista = "";
+      for (let i = 101; i <= 110; i++) {
+        lista = lista + i + "\n";
+      }
+      alert(lista);
+      break;
+    }
+
+    case "3.9": {
+      // quantos valores estão entre 24 e 42
+      let dentro = 0;
+      let fora = 0;
+      for (let i = 1; i <= 10; i++) {
+        let valor = Number(prompt("Digite o valor " + i + ":"));
+        if (valor >= 24 && valor <= 42) {
+          dentro = dentro + 1;
+        } else {
+          fora = fora + 1;
+        }
+      }
+      alert("Dentro do intervalo: " + dentro + "\nFora do intervalo: " + fora);
+      break;
+    }
+
+    default:
+      alert("Exercício não encontrado");
+  }
+}
+
+// ================= MENU PRINCIPAL =================
+let opcao = "";
+
+while (opcao != "0") {
+  opcao = prompt(
+    "MENU\n" +
+    "1 - Primeiros Passos\n" +
+    "2 - Condicionais\n" +
+    "3 - Laços de Repetição\n" +
+    "0 - Sair"
+  );
+
+  if (opcao == "1") {
+    primeirosPassos();
+  } else if (opcao == "2") {
+    condicionais();
+  } else if (opcao == "3") {
+    lacos();
+  } else if (opcao == "0" || opcao === null) {
+    // null é quando clica em cancelar
+    opcao = "0";
+  } else {
+    alert("Opção inválida!");
+  }
+}
+
+alert("Programa encerrado");
+</script>
+</body>
+</html>
