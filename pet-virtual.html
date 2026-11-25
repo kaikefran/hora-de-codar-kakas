@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Simulador de Animal de Estimação Virtual</title>
+</head>
+<body>
+<script>
+// Hora de Codar: Uma Nova Geração
+// Simulador de Animal de Estimação Virtual (Programação Orientada a Objetos)
+
+class Pet {
+  constructor(nome) {
+    this.nome = nome;
+    this.fome = 30;        // quanto maior, mais fome
+    this.felicidade = 70;  // quanto maior, mais feliz
+    this.cansaco = 0;      // melhoria 1
+    this.idade = 0;        // melhoria 3
+    this.banheiro = 0;     // extra: vontade de ir ao banheiro
+    this.sujeira = 0;      // extra: sujeira
+  }
+
+  // diminui a fome e aumenta a vontade de ir ao banheiro
+  alimentar() {
+    this.fome = this.fome - 20;
+    if (this.fome < 0) {
+      this.fome = 0;
+    }
+    this.banheiro = this.banheiro + 15;
+    alert(this.nome + " comeu e ficou mais satisfeito!");
+  }
+
+  // aumenta a felicidade, o cansaço e a sujeira
+  brincar() {
+    this.felicidade = this.felicidade + 20;
+    if (this.felicidade > 100) {
+      this.felicidade = 100;
+    }
+    this.cansaco = this.cansaco + 15;
+    this.sujeira = this.sujeira + 15;
+    alert(this.nome + " brincou bastante!");
+  }
+
+  // melhoria 2 + extra: 8 horas deixa totalmente descansado (100 / 8 = 12,5 por hora)
+  descansar(horas) {
+    this.cansaco = this.cansaco - horas * 12.5;
+    if (this.cansaco < 0) {
+      this.cansaco = 0;
+    }
+    alert(this.nome + " descansou por " + horas + " hora(s).");
+  }
+
+  irAoBanheiro() {
+    this.banheiro = 0;
+    alert(this.nome + " foi ao banheiro e está aliviado!");
+  }
+
+  darBanho() {
+    this.sujeira = 0;
+    alert(this.nome + " tomou banho e está limpinho!");
+  }
+
+  verificarStatus() {
+    alert("STATUS DE " + this.nome.toUpperCase() + "\n" +
+      "Idade: " + this.idade + "\n" +
+      "Fome: " + this.fome + "\n" +
+      "Felicidade: " + this.felicidade + "\n" +
+      "Cansaço: " + this.cansaco + "\n" +
+      "Vontade de ir ao banheiro: " + this.banheiro + "\n" +
+      "Sujeira: " + this.sujeira);
+  }
+
+  // passagem do tempo: acontece a cada ciclo
+  passarTempo() {
+    this.fome = this.fome + 3;
+    this.felicidade = this.felicidade - 3;
+    this.cansaco = this.cansaco + 10;
+    this.idade = this.idade + 1;
+  }
+
+  // devolve o motivo da derrota (ou texto vazio se ainda está tudo bem)
+  verificarDerrota() {
+    if (this.fome >= 100) {
+      return this.nome + " morreu de fome!";
+    }
+    if (this.cansaco >= 100) {
+      return this.nome + " ficou exausto demais!";
+    }
+    if (this.felicidade <= 0) {
+      return this.nome + " ficou muito triste!";
+    }
+    if (this.banheiro >= 100) {
+      return this.nome + " não aguentou segurar a vontade de ir ao banheiro!";
+    }
+    if (this.sujeira >= 100) {
+      return this.nome + " ficou sujo demais!";
+    }
+    return "";
+  }
+}
+
+// ================= PROGRAMA PRINCIPAL =================
+let nomePet = prompt("Qual é o nome do seu bichinho?");
+if (nomePet == null || nomePet.trim() == "") {
+  nomePet = "Bolinha";
+}
+let pet = new Pet(nomePet.trim());
+
+alert("Cuide bem de " + pet.nome + "! Faça ele chegar à idade 50 para vencer.");
+
+let motivoDerrota = "";
+let desistiu = false;
+
+while (pet.idade < 50 && motivoDerrota == "" && desistiu == false) {
+  let opcao = prompt(
+    pet.nome + " | Idade: " + pet.idade + "\n" +
+    "Fome: " + pet.fome + " | Felicidade: " + pet.felicidade + " | Cansaço: " + pet.cansaco +
+    " | Banheiro: " + pet.banheiro + " | Sujeira: " + pet.sujeira + "\n\n" +
+    "1 - Alimentar\n2 - Brincar\n3 - Descansar\n4 - Levar ao banheiro\n5 - Dar banho\n6 - Verificar status\n0 - Sair"
+  );
+
+  // gastouTempo vale true quando a ação faz um ciclo de tempo passar
+  let gastouTempo = false;
+
+  if (opcao == null || opcao.trim() == "0") {
+    desistiu = true;
+  } else if (opcao.trim() == "1") {
+    pet.alimentar();
+    gastouTempo = true;
+  } else if (opcao.trim() == "2") {
+    pet.brincar();
+    gastouTempo = true;
+  } else if (opcao.trim() == "3") {
+    let horas = Number(prompt("Por quantas horas ele vai descansar? (1 a 8)"));
+    if (isNaN(horas) || horas < 1 || horas > 8) {
+      alert("Digite um número de 1 a 8.");
+    } else {
+      pet.descansar(horas);
+      gastouTempo = true;
+    }
+  } else if (opcao.trim() == "4") {
+    pet.irAoBanheiro();
+    gastouTempo = true;
+  } else if (opcao.trim() == "5") {
+    pet.darBanho();
+    gastouTempo = true;
+  } else if (opcao.trim() == "6") {
+    pet.verificarStatus();
+  } else {
+    alert("Opção inválida!");
+  }
+
+  if (gastouTempo == true) {
+    pet.passarTempo();
+    motivoDerrota = pet.verificarDerrota();
+  }
+}
+
+if (desistiu == true) {
+  alert("Você saiu do jogo. " + pet.nome + " ficou com saudade!");
+} else if (motivoDerrota != "") {
+  alert("VOCÊ PERDEU! " + motivoDerrota + "\nIdade alcançada: " + pet.idade);
+} else {
+  alert("PARABÉNS! " + pet.nome + " chegou à idade " + pet.idade + " e você venceu!");
+}
+</script>
+</body>
+</html>
