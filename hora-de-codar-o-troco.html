@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Hora de Codar: O Troco</title>
+</head>
+<body>
+<script>
+// Hora de Codar: O Troco (conta bancária)
+
+const SENHA = 3589;
+
+let saldo = 3500;
+let extrato = [
+  "Depósito de salário: + R$ 3000",
+  "Compra no mercado: - R$ 250",
+  "Compra na farmácia: - R$ 80",
+  "Depósito recebido: + R$ 830"
+];
+
+// pergunta o nome logo que entra no sistema
+let nome = prompt("Qual é o seu nome?");
+alert("Olá " + nome + " é um prazer ter você por aqui!");
+
+// ---------- função que mostra o erro do menu ----------
+function erro() {
+  alert("Por favor, informe um número entre 1 a 6");
+  inicio();
+}
+
+// ---------- menu principal ----------
+function inicio() {
+  let opcao = prompt(
+    "Escolha uma opção:\n" +
+    "1 - Saldo\n" +
+    "2 - Extrato\n" +
+    "3 - Saque\n" +
+    "4 - Depósito\n" +
+    "5 - Transferência\n" +
+    "6 - Sair"
+  );
+
+  switch (opcao) {
+    case "1":
+      verSaldo();
+      break;
+    case "2":
+      verExtrato();
+      break;
+    case "3":
+      sacar();
+      break;
+    case "4":
+      depositar();
+      break;
+    case "5":
+      transferir();
+      break;
+    case "6":
+      sair();
+      break;
+    case null:
+      // clicou em cancelar
+      sair();
+      break;
+    default:
+      erro();
+  }
+}
+
+// ---------- 1 - saldo ----------
+function verSaldo() {
+  let senha = prompt("Digite sua senha:");
+  if (senha == SENHA) {
+    alert("Seu saldo é de R$ " + saldo);
+    inicio();
+  } else {
+    alert("Senha incorreta!");
+    verSaldo(); // chama a função atual de novo
+  }
+}
+
+// ---------- 2 - extrato ----------
+function verExtrato() {
+  let senha = prompt("Digite sua senha:");
+  if (senha == SENHA) {
+    alert("EXTRATO\n" + extrato.join("\n") + "\n\nSaldo atual: R$ " + saldo);
+    inicio();
+  } else {
+    alert("Senha incorreta!");
+    verExtrato();
+  }
+}
+
+// ---------- 3 - saque ----------
+function sacar() {
+  let senha = prompt("Digite sua senha:");
+  if (senha == SENHA) {
+    let valor = Number(prompt("Qual valor você quer sacar?"));
+    if (valor <= 0 || isNaN(valor)) {
+      alert("Operação não autorizada");
+    } else if (valor > saldo) {
+      // não pode ficar com saldo negativo
+      alert("Operação não autorizada");
+    } else {
+      saldo = saldo - valor;
+      extrato.push("Saque: - R$ " + valor);
+      alert("Saque realizado! Saldo atual: R$ " + saldo);
+    }
+    inicio();
+  } else {
+    alert("Senha incorreta!");
+    sacar();
+  }
+}
+
+// ---------- 4 - depósito ----------
+function depositar() {
+  let valor = Number(prompt("Qual valor você quer depositar?"));
+  if (valor <= 0 || isNaN(valor)) {
+    alert("Operação não autorizada");
+  } else {
+    saldo = saldo + valor;
+    extrato.push("Depósito: + R$ " + valor);
+    alert("Depósito realizado! Saldo atual: R$ " + saldo);
+  }
+  inicio();
+}
+
+// ---------- 5 - transferência ----------
+function transferir() {
+  let senha = prompt("Digite sua senha:");
+  if (senha == SENHA) {
+    let conta = prompt("Digite o número da conta de destino:");
+
+    // só aceita números (nenhum outro caractere)
+    if (conta === null || !/^[0-9]+$/.test(conta)) {
+      alert("Operação não autorizada");
+      inicio();
+      return;
+    }
+
+    let valor = Number(prompt("Qual valor você quer transferir?"));
+    if (valor <= 0 || isNaN(valor)) {
+      alert("Operação não autorizada");
+    } else if (valor > saldo) {
+      alert("Operação não autorizada");
+    } else {
+      saldo = saldo - valor;
+      extrato.push("Transferência para a conta " + conta + ": - R$ " + valor);
+      alert("Transferência realizada! Saldo atual: R$ " + saldo);
+    }
+    inicio();
+  } else {
+    alert("Senha incorreta!");
+    transferir();
+  }
+}
+
+// ---------- 6 - sair ----------
+function sair() {
+  alert(nome + ", foi um prazer ter você por aqui!");
+}
+
+// começa o sistema
+inicio();
+</script>
+</body>
+</html>
