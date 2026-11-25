@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Hora de Codar: Um Novo Dia Para Codar</title>
+</head>
+<body>
+<script>
+// Hora de Codar: Um Novo Dia Para Codar (arrays)
+// Os 4 exercícios estão neste arquivo. O menu fica no final.
+
+// ================= 1 - ESTUDANTES =================
+function estudantes() {
+  let lista = [];
+
+  let nome = prompt("Digite o nome do estudante (ou PARE para terminar):");
+
+  // repete até digitar PARE (ou clicar em cancelar)
+  while (nome != null && nome.toUpperCase() != "PARE") {
+    if (nome.trim() != "") {
+      lista.push(nome.trim());
+    } else {
+      alert("Você não digitou nenhum nome!");
+    }
+    nome = prompt("Digite o nome do estudante (ou PARE para terminar):");
+  }
+
+  // monta o texto da lista com um for
+  let texto = "";
+  for (let i = 0; i < lista.length; i++) {
+    texto = texto + (i + 1) + " - " + lista[i] + "\n";
+  }
+
+  alert("Quantidade de estudantes cadastrados: " + lista.length + "\n\n" + texto);
+}
+
+// ================= 2 - PLANETAS =================
+function planetas() {
+  let sistemaSolar = ["Mercúrio", "Vênus", "Terra", "Marte", "Júpiter", "Saturno", "Urano", "Netuno", "Plutão"];
+
+  alert("Planetas do sistema solar:\n" + sistemaSolar.join("\n"));
+
+  let escolhido = prompt("Digite o nome de um planeta:");
+
+  if (escolhido != null) {
+    let achou = false;
+
+    // passa por todos os planetas comparando (sem ligar pra maiúscula e minúscula)
+    for (let i = 0; i < sistemaSolar.length; i++) {
+      if (sistemaSolar[i].toLowerCase() == escolhido.trim().toLowerCase()) {
+        achou = true;
+      }
+    }
+
+    if (achou == true) {
+      alert(escolhido + " está na lista de planetas!");
+    } else {
+      alert(escolhido + " não está na lista de planetas.");
+    }
+  }
+}
+
+// ================= 3 - COMPRAS =================
+function compras() {
+  let frutas = ["Maçã", "Banana", "Laranja", "Uva", "Morango", "Abacaxi"];
+
+  let fruta = prompt("Lista de frutas:\n" + frutas.join(", ") + "\n\nDigite uma fruta para retirar da lista (ou PARE):");
+
+  // repete enquanto não digitar PARE e ainda tiver fruta na lista
+  while (fruta != null && fruta.toUpperCase() != "PARE" && frutas.length > 0) {
+
+    // procura a posição da fruta no array (-1 quer dizer que não achou)
+    let posicao = -1;
+    for (let i = 0; i < frutas.length; i++) {
+      if (frutas[i].toLowerCase() == fruta.trim().toLowerCase()) {
+        posicao = i;
+      }
+    }
+
+    if (posicao >= 0) {
+      frutas.splice(posicao, 1); // remove a fruta do array
+      alert("Fruta foi retirada da lista");
+    } else {
+      alert("Fruta indisponível no nosso mercado");
+    }
+
+    // só pergunta de novo se ainda sobrou fruta
+    if (frutas.length > 0) {
+      fruta = prompt("Lista de frutas:\n" + frutas.join(", ") + "\n\nDigite outra fruta para retirar (ou PARE):");
+    }
+  }
+
+  if (frutas.length == 0) {
+    alert("Lista de compras finalizada");
+  } else {
+    alert("Frutas restantes: " + frutas.join(", "));
+  }
+}
+
+// ================= 4 - AGENDA DE CONTATOS =================
+function agenda() {
+  // cada contato é um objeto { nome, telefone } guardado no array
+  let contatos = [];
+
+  // procura um contato pelo nome e devolve a posição (-1 se não achar)
+  function procurar(nome) {
+    for (let i = 0; i < contatos.length; i++) {
+      if (contatos[i].nome.toLowerCase() == nome.trim().toLowerCase()) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  let comando = "";
+
+  while (comando != "SAIR") {
+    let resposta = prompt("Digite um comando (ADICIONAR, BUSCAR, REMOVER, LISTAR, SAIR):");
+
+    if (resposta === null) {
+      comando = "SAIR"; // clicou em cancelar
+    } else {
+      comando = resposta.trim().toUpperCase();
+    }
+
+    switch (comando) {
+      case "ADICIONAR": {
+        let nome = prompt("Nome:");
+        let telefone = prompt("Telefone:");
+        if (nome == null || telefone == null || nome.trim() == "" || telefone.trim() == "") {
+          alert("Nome e telefone são obrigatórios!");
+        } else {
+          contatos.push({ nome: nome.trim(), telefone: telefone.trim() });
+          alert("Contato adicionado!");
+        }
+        break;
+      }
+
+      case "BUSCAR": {
+        let nome = prompt("Nome:");
+        if (nome != null) {
+          let posicao = procurar(nome);
+          if (posicao >= 0) {
+            alert("Nome: " + contatos[posicao].nome + "\nTelefone: " + contatos[posicao].telefone);
+          } else {
+            alert("Contato não encontrado");
+          }
+        }
+        break;
+      }
+
+      case "REMOVER": {
+        let nome = prompt("Nome:");
+        if (nome != null) {
+          let posicao = procurar(nome);
+          if (posicao >= 0) {
+            contatos.splice(posicao, 1);
+            alert("Contato removido!");
+          } else {
+            alert("Contato não encontrado");
+          }
+        }
+        break;
+      }
+
+      case "LISTAR": {
+        if (contatos.length == 0) {
+          alert("Nenhum contato cadastrado.");
+        } else {
+          let texto = "";
+          for (let i = 0; i < contatos.length; i++) {
+            texto = texto + contatos[i].nome + " - " + contatos[i].telefone + "\n";
+          }
+          alert("CONTATOS\n" + texto);
+        }
+        break;
+      }
+
+      case "SAIR":
+        // não faz nada aqui, o while para sozinho
+        break;
+
+      default:
+        alert("Comando inválido!");
+    }
+  }
+
+  alert("Agenda encerrada. Total de contatos: " + contatos.length);
+}
+
+// ================= MENU PRINCIPAL =================
+let opcao = "";
+
+while (opcao != "0") {
+  opcao = prompt(
+    "UM NOVO DIA PARA CODAR\n" +
+    "1 - Estudantes\n" +
+    "2 - Planetas\n" +
+    "3 - Compras\n" +
+    "4 - Agenda de Contatos\n" +
+    "0 - Sair"
+  );
+
+  if (opcao == null) {
+    opcao = "0"; // clicou em cancelar
+  }
+
+  switch (opcao.trim()) {
+    case "1":
+      estudantes();
+      break;
+    case "2":
+      planetas();
+      break;
+    case "3":
+      compras();
+      break;
+    case "4":
+      agenda();
+      break;
+    case "0":
+      break;
+    default:
+      alert("Opção inválida! Digite um número de 0 a 4.");
+  }
+}
+
+alert("Programa encerrado");
+</script>
+</body>
+</html>
